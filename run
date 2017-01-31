@@ -1,7 +1,7 @@
 #!/usr/bin/php
 <?php
 	// load all .class.php files in a directory
-	function classes_load( $dir = null )
+	function classes_load( $dir = null, $flag_print = false )
 	{
 		if( ! $dir )
 			throw new Exception('dir not specified');
@@ -16,20 +16,20 @@
 			if( is_dir($file) )
 				continue;
 			
-			echo "\nloading: ".basename($file);
+			if( $flag_print )
+				echo "loading: ".basename($file)."\n";
+			
 			require_once($file);
 		}
-		echo "\n";
 	}
 	
 	echo "\nphpsim\n\n";
 	
 	try{
 		classes_load('classes_core');
-		classes_load('classes_sim');
+		classes_load('classes_sim', 'print');
 		
 		$options = array(
-			'foo'	=> 'bar',
 			'iter'	=> 100,
 			'sims'	=> 100,
 		);
@@ -43,3 +43,4 @@
 	{
 		echo "ERROR:\n\n".$e."\n\n";
 	}
+	

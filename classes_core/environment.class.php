@@ -1,11 +1,11 @@
 <?php
-	final class Environment
+	class Environment
 	{
-		private static $_instance = null;
+		protected static $_instance = null;
 		
-		private $_options = array();
+		protected $_options = array();
 		
-		private $_sims = array();
+		protected $_sims = array();
 		
 		
 		public static function instance( $options )

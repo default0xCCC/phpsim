@@ -51,9 +51,9 @@
 		
 		public function iterate()
 		{
-			var_dump($this->_world->sim_neighbors($this->_name));
-			die();
-			// TODO
+			/**
+			 * base class does nothing of interest
+			 */
 		}
 		
 	}
