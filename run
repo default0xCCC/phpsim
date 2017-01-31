@@ -1,0 +1,45 @@
+#!/usr/bin/php
+<?php
+	// load all .class.php files in a directory
+	function classes_load( $dir = null )
+	{
+		if( ! $dir )
+			throw new Exception('dir not specified');
+		
+		$dir = dirname(__FILE__).'/'.$dir;
+		
+		if( ! is_dir($dir) )
+			throw new Exception('dir "'.$dir.'" not found');
+		
+		foreach( glob($dir.'/*.class.php') as $file )
+		{
+			if( is_dir($file) )
+				continue;
+			
+			echo "\nloading: ".basename($file);
+			require_once($file);
+		}
+		echo "\n";
+	}
+	
+	echo "\nphpsim\n\n";
+	
+	try{
+		classes_load('classes_core');
+		classes_load('classes_sim');
+		
+		$options = array(
+			'foo'	=> 'bar',
+			'iter'	=> 100,
+			'sims'	=> 100,
+		);
+		
+		$world = Environment::instance($options);
+		
+		$world->init();
+		
+	}
+	catch( Exception $e )
+	{
+		echo "ERROR:\n\n".$e."\n\n";
+	}
