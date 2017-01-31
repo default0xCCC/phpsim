@@ -13,7 +13,9 @@
 			if( self::$_instance )
 				return self::$_instance;
 			
-			self::$_instance = new Environment($options);
+			$class = __CLASS__;
+			
+			self::$_instance = new $class($options);
 			
 			return self::$_instance;
 		}

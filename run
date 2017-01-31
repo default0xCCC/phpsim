@@ -29,12 +29,38 @@
 		classes_load('classes_core');
 		classes_load('classes_sim', 'print');
 		
+		$options_cli_available = array(
+			'c:'	=> 'simclass:',
+			'e:'	=> 'envclass:',
+			// TODO 'i:'	=> 'iter:',
+			// TODO 's:'	=> 'sims:',
+		);
+		
+		$options_cli = getopt( implode(array_keys($options_cli_available)), array_values($options_cli_available) );
+		
 		$options = array(
 			'iter'	=> 100,
 			'sims'	=> 100,
 		);
 		
-		$world = Environment::instance($options);
+		$world = null;
+		
+		/* TODO this needs work to validate and apply cli input
+		if( $options_cli )
+		{
+			if( array_key_exists('e', $options_cli) )
+				$world = {$options_cli['e'].'Environment'}::instance($options);
+			
+			if( array_key_exists('envclass', $options_cli) )
+				$world = {$options_cli['envclass'].'Environment'}::instance($options);
+			
+		}
+		*/
+		
+		$world = Debug_Environment::instance($options);
+		
+		if( ! $world )
+			$world = Environment::instance($options);
 		
 		$world->init();
 		
